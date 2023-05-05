@@ -27,7 +27,7 @@ class mainpage extends StatelessWidget {
                 {
                   'image': 'assets/2.PNG',
                   'text': 'Prayers',
-                  'screen': 'test2',
+                  'screen': 'MusicPlayer',
                 },
                 {
                   'image': 'assets/3.PNG',

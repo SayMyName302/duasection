@@ -22,10 +22,16 @@ Future<void> copyDatabase() async {
 }
 
 class Dua {
+  final String duaTitle;
+  final String duaRef;
   final String duaText;
   final String translationUrdu;
 
-  Dua({required this.duaText, required this.translationUrdu});
+  Dua(
+      {required this.duaTitle,
+      required this.duaRef,
+      required this.duaText,
+      required this.translationUrdu});
 }
 
 Future<List<Dua>> getDataFromDatabase() async {
@@ -35,13 +41,15 @@ Future<List<Dua>> getDataFromDatabase() async {
   // Open the database and execute a query
   String path = join(await getDatabasesPath(), 'fullquran.db');
   Database database = await openDatabase(path);
-  List<Map<String, dynamic>> results = await database.rawQuery(
-      "SELECT dua_text, translation_urdu FROM duas_all WHERE dua_title = 'rabbana'");
+  List<Map<String, dynamic>> results = await database
+      .rawQuery("SELECT * FROM duas_all WHERE dua_title = 'rabbana'");
 
   // Close the database and map the query results to Dua objects
   await database.close();
   return results
       .map((result) => Dua(
+            duaTitle: result['dua_title'],
+            duaRef: result['dua_ref'],
             duaText: result['dua_text'],
             translationUrdu: result['translation_urdu'],
           ))
